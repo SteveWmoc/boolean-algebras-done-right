@@ -1,6 +1,6 @@
 /-
 Copyright (c) 2026 Steven Sabean. All rights reserved.
--
+-/
 
 /-!
 # Boolean-algebra signature
