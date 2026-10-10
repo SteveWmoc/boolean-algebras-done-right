@@ -8,9 +8,8 @@ Copyright (c) 2026 Steven Sabean. All rights reserved.
 This file records only the finitary algebraic signature of Boolean algebras:
 two binary operations, one unary operation, and two constants.
 
-No order or lattice structure is assumed here.  The choice of equational axiom
-basis is intentionally left to `Basic.lean` after comparison with the classical
-references and after prototyping the resulting API.
+No order or lattice structure is assumed here.  The equational laws defining a
+Boolean algebra are stated separately in `Basic.lean`.
 -/
 
 universe u

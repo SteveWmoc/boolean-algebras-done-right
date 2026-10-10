@@ -42,3 +42,18 @@ feedback about which reusable Boolean-algebra results deserve priority.
 The roadmap is living.  Near-term interfaces should be tested on concrete
 examples and downstream applications before large parts of the library depend
 on them.
+
+## D006 — Ten primitive equations
+
+The foundational Boolean-algebra laws are exactly ten equations:
+
+- associativity and commutativity of meet;
+- associativity and commutativity of join;
+- the two absorption laws;
+- the two distributive laws;
+- `x + (-x) = 1` and `x · (-x) = 0`, expressed using the primitive
+  operations.
+
+Idempotence, the identity and absorbing laws for zero and one, uniqueness and
+involutivity of complement, De Morgan's laws, and all order-theoretic structure
+are derived results rather than primitive fields.
