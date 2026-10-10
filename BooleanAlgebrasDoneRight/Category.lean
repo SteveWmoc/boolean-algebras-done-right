@@ -57,13 +57,18 @@ instance : Category.{u} BoolAlg where
     cases h
     rfl
 
+/-- Regard a categorical morphism as the underlying intrinsic Boolean
+homomorphism. -/
+abbrev hom {A B : BoolAlg} (f : A ⟶ B) : BooleanAlgebra.Hom A B :=
+  f
+
 @[simp] theorem id_apply {A : BoolAlg} (x : A) :
-    (𝟙 A : A ⟶ A) x = x :=
+    hom (𝟙 A) x = x :=
   rfl
 
 @[simp] theorem comp_apply {A B C : BoolAlg}
     (f : A ⟶ B) (g : B ⟶ C) (x : A) :
-    (f ≫ g) x = g (f x) :=
+    hom (f ≫ g) x = hom g (hom f x) :=
   rfl
 
 end BoolAlg
