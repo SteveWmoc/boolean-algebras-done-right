@@ -1,3 +1,4 @@
+import Mathlib.Logic.Function.Defs
 import BooleanAlgebrasDoneRight.Hom
 
 /-
