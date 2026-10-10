@@ -6,12 +6,14 @@ already known.
 
 ## M001 — Algebraic core
 
-- choose a standard equational axiom basis for the Boolean signature;
-- define the Boolean-algebra laws without primitive order structure;
-- derive elementary identities, including absorption, involution, and the usual
-  interaction of complement with the binary operations;
-- settle notation and the split, if any, between raw operations and lawful
-  Boolean algebras.
+- use the finitary Boolean signature with two binary operations, one unary
+  operation, and two constants;
+- take as primitive axioms associativity and commutativity of meet and join,
+  the two absorption laws, the two distributive laws, and the two
+  complementation laws;
+- derive idempotence and the neutral/absorbing behavior of zero and one;
+- derive uniqueness and involutivity of complement and De Morgan's laws;
+- settle notation without making order or lattice structure foundational.
 
 Acceptance criterion: the core theory is usable without importing or assuming
 Mathlib's lattice-first Boolean-algebra structure.
