@@ -86,6 +86,33 @@ theorem Hom.eq_toSubsingleton
   funext x
   exact Subsingleton.elim _ _
 
+/-- A homomorphism from a one-element Boolean algebra can exist only when
+the codomain is also one-element. -/
+theorem subsingleton_of_hom_from_subsingleton
+    {A : Type u} {B : Type v}
+    [BooleanAlgebra A] [BooleanAlgebra B] [Subsingleton A]
+    (f : Hom A B) :
+    Subsingleton B := by
+  rw [subsingleton_iff_zero_eq_one]
+  calc
+    (zero : B) = f (zero : A) := f.map_zero.symm
+    _ = f (one : A) := by
+      rw [Subsingleton.elim (zero : A) one]
+    _ = one := f.map_one
+
+/-- If the domain is one-element, there exists a Boolean homomorphism into
+`B` exactly when `B` is one-element. -/
+theorem nonempty_hom_from_subsingleton_iff
+    (A : Type u) (B : Type v)
+    [BooleanAlgebra A] [BooleanAlgebra B] [Subsingleton A] :
+    Nonempty (Hom A B) ↔ Subsingleton B := by
+  constructor
+  · rintro ⟨f⟩
+    exact subsingleton_of_hom_from_subsingleton f
+  · intro h
+    letI : Subsingleton B := h
+    exact ⟨Hom.toSubsingleton A B⟩
+
 /-- Any two one-element Boolean algebras are isomorphic. -/
 def Iso.ofSubsingleton (A : Type u) (B : Type v)
     [BooleanAlgebra A] [BooleanAlgebra B]
