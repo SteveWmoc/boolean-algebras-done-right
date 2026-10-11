@@ -8,6 +8,7 @@ import BooleanAlgebrasDoneRight.Iso
 import BooleanAlgebrasDoneRight.Trivial
 import BooleanAlgebrasDoneRight.Category
 import BooleanAlgebrasDoneRight.Examples.Set
+import BooleanAlgebrasDoneRight.Examples.SetAlgebra
 import BooleanAlgebrasDoneRight.Examples.TrivialSet
 import BooleanAlgebrasDoneRight.Examples.Two
 import BooleanAlgebrasDoneRight.Mathlib.Bridge
