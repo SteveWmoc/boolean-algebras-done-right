@@ -38,6 +38,16 @@ instance {A : Type u} {B : Type v} [BooleanAlgebra A] [BooleanAlgebra B] :
     CoeFun (Hom A B) (fun _ => A → B) :=
   ⟨Hom.toFun⟩
 
+/-- Boolean homomorphisms are determined by their underlying functions. -/
+@[ext] theorem Hom.ext {A : Type u} {B : Type v}
+    [BooleanAlgebra A] [BooleanAlgebra B]
+    {f g : Hom A B} (h : f.toFun = g.toFun) :
+    f = g := by
+  cases f
+  cases g
+  cases h
+  rfl
+
 variable {A : Type u} {B : Type v} {C : Type w}
   [BooleanAlgebra A] [BooleanAlgebra B] [BooleanAlgebra C]
 
