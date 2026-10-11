@@ -31,4 +31,13 @@ The internal roadmap is a living document. The project does not aim to formalize
 
 ## Status
 
-Initial setup in progress.
+The primitive Boolean signature and equational axioms, elementary identities,
+derived order, intrinsic homomorphisms and isomorphisms, and the category of
+Boolean algebras are implemented. Concrete examples include power set,
+trivial, and two-element algebras.
+
+`BooleanAlgebra.Subalgebra A` describes substructures as subsets closed under
+meet, join, complement, zero, and one. Each subalgebra inherits a Boolean
+algebra structure on its carrier subtype. `S.subtype : BooleanAlgebra.Hom S A`
+is the canonical injective inclusion, with simplification lemmas for all five
+primitive operations.
