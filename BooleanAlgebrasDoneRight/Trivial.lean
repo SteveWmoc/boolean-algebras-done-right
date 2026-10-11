@@ -76,6 +76,16 @@ def Hom.toSubsingleton (A : Type u) (B : Type v)
     Hom.toSubsingleton A B x = (zero : B) :=
   rfl
 
+/-- The homomorphism into a one-element Boolean algebra is unique. -/
+theorem Hom.eq_toSubsingleton
+    {A : Type u} {B : Type v}
+    [BooleanAlgebra A] [BooleanAlgebra B] [Subsingleton B]
+    (f : Hom A B) :
+    f = Hom.toSubsingleton A B := by
+  apply Hom.ext
+  funext x
+  exact Subsingleton.elim _ _
+
 /-- Any two one-element Boolean algebras are isomorphic. -/
 def Iso.ofSubsingleton (A : Type u) (B : Type v)
     [BooleanAlgebra A] [BooleanAlgebra B]
