@@ -66,12 +66,12 @@ theorem singletonPowerSet_zero_ne_one (x : α) :
   intro h
   have hsets := congrArg
     (fun a : SingletonPowerSetAlgebra x => (a : Set α)) h
-  have hx : x ∈ ({x} : Set α) := Set.mem_singleton x
+  have hx : x ∈ ({x} : Set α) := by simp
   rw [val_zero, val_one] at hsets
   have : x ∈ (∅ : Set α) := by
     rw [hsets]
     exact hx
-  exact this
+  simpa using this
 
 /-- The power set algebra of a singleton is equivalent, as a type, to
 `Bool`. -/
