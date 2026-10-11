@@ -94,13 +94,8 @@ noncomputable def singletonPowerSetEquivBool (x : α) :
 @[simp] theorem singletonPowerSet_cardinality (x : α) :
     BooleanAlgebra.cardinality (SingletonPowerSetAlgebra x) = 2 := by
   change Cardinal.mk (SingletonPowerSetAlgebra x) = 2
-  apply (Cardinal.mk_eq_two_iff' (zero : SingletonPowerSetAlgebra x)).2
-  refine ⟨one, ?_, ?_⟩
-  · exact (singletonPowerSet_zero_ne_one x).symm
-  · intro y hy
-    rcases singletonPowerSet_eq_zero_or_eq_one x y with h | h
-    · exact (hy h).elim
-    · exact h
+  apply Cardinal.mk_eq_nat_iff.mpr
+  exact ⟨(singletonPowerSetEquivBool x).trans finTwoEquiv.symm⟩
 
 /-- The canonical two-element Boolean algebra, denoted `Two`. -/
 abbrev Two : Type :=
