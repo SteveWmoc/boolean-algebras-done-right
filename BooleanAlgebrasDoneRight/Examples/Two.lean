@@ -71,7 +71,7 @@ theorem singletonPowerSet_zero_ne_one (x : α) :
   have : x ∈ (∅ : Set α) := by
     rw [hsets]
     exact hx
-  simpa using this
+  simp at this
 
 /-- The power set algebra of a singleton is equivalent, as a type, to
 `Bool`. -/
@@ -86,18 +86,21 @@ noncomputable def singletonPowerSetEquivBool (x : α) :
     · subst a
       simp
     · subst a
-      simp [singletonPowerSet_zero_ne_one x]
+      simp [Ne.symm (singletonPowerSet_zero_ne_one x)]
   right_inv b := by
-    cases b <;> simp [singletonPowerSet_zero_ne_one x]
+    cases b <;> simp [Ne.symm (singletonPowerSet_zero_ne_one x)]
 
 /-- The power set algebra of a singleton has cardinality two. -/
 @[simp] theorem singletonPowerSet_cardinality (x : α) :
     BooleanAlgebra.cardinality (SingletonPowerSetAlgebra x) = 2 := by
-  calc
-    BooleanAlgebra.cardinality (SingletonPowerSetAlgebra x) =
-        Cardinal.mk (SingletonPowerSetAlgebra x) := rfl
-    _ = Cardinal.mk Bool := (singletonPowerSetEquivBool x).cardinal_eq
-    _ = 2 := Cardinal.mk_bool
+  change Cardinal.mk (SingletonPowerSetAlgebra x) = 2
+  apply (Cardinal.mk_eq_two_iff' (zero : SingletonPowerSetAlgebra x)).2
+  refine ⟨one, ?_, ?_⟩
+  · exact (singletonPowerSet_zero_ne_one x).symm
+  · intro y hy
+    rcases singletonPowerSet_eq_zero_or_eq_one x y with h | h
+    · exact (hy h).elim
+    · exact h
 
 /-- The canonical two-element Boolean algebra, denoted `Two`. -/
 abbrev Two : Type :=
