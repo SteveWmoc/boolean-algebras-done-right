@@ -1,4 +1,4 @@
-import Mathlib.Data.Set.Lattice
+import Mathlib.Data.Set.Lattice.Bounded
 import Mathlib.Tactic.Tauto
 import BooleanAlgebrasDoneRight.Basic
 
