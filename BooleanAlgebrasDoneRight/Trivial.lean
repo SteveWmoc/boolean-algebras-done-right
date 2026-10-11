@@ -49,7 +49,7 @@ theorem subsingleton_iff_zero_eq_one (A : Type u) [BooleanAlgebra A] :
 @[simp] theorem cardinality_eq_one_of_subsingleton
     (A : Type u) [BooleanAlgebra A] [Subsingleton A] :
     cardinality A = 1 := by
-  haveI : Nonempty A := ⟨zero⟩
+  have : Nonempty A := ⟨zero⟩
   exact Cardinal.mk_eq_one A
 
 /-- There is a canonical homomorphism from any Boolean algebra into a
@@ -110,7 +110,7 @@ theorem nonempty_hom_from_subsingleton_iff
   · rintro ⟨f⟩
     exact subsingleton_of_hom_from_subsingleton f
   · intro h
-    letI : Subsingleton B := h
+    let : Subsingleton B := h
     exact ⟨Hom.toSubsingleton A B⟩
 
 /-- Any two one-element Boolean algebras are isomorphic. -/
