@@ -94,7 +94,7 @@ noncomputable def singletonPowerSetEquivBool (x : α) :
 @[simp] theorem singletonPowerSet_cardinality (x : α) :
     BooleanAlgebra.cardinality (SingletonPowerSetAlgebra x) = 2 := by
   change Cardinal.mk (SingletonPowerSetAlgebra x) = 2
-  rw [Cardinal.mk_eq_nat_iff]
+  apply (Cardinal.mk_eq_nat_iff (n := 2)).mpr
   exact ⟨(singletonPowerSetEquivBool x).trans finTwoEquiv.symm⟩
 
 /-- The canonical two-element Boolean algebra, denoted `Two`. -/
