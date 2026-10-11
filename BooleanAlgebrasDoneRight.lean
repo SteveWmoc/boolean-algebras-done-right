@@ -3,6 +3,7 @@ import BooleanAlgebrasDoneRight.Basic
 import BooleanAlgebrasDoneRight.Cardinality
 import BooleanAlgebrasDoneRight.Order
 import BooleanAlgebrasDoneRight.Hom
+import BooleanAlgebrasDoneRight.Subalgebra
 import BooleanAlgebrasDoneRight.Iso
 import BooleanAlgebrasDoneRight.Trivial
 import BooleanAlgebrasDoneRight.Category
