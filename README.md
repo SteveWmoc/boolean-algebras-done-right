@@ -41,3 +41,11 @@ meet, join, complement, zero, and one. Each subalgebra inherits a Boolean
 algebra structure on its carrier subtype. `S.subtype : BooleanAlgebra.Hom S A`
 is the canonical injective inclusion, with simplification lemmas for all five
 primitive operations.
+
+`SetExamples.SetAlgebra X` specializes subalgebras to the power set algebra
+of `X`. `IsSetAlgebra X F` states the concrete family conditions: every member
+is a subset of `X`, the family contains the empty set and `X`, and it is closed
+under binary intersection, binary union, and relative complement in `X`.
+`SetAlgebra.equivFamilies X` proves the two presentations equivalent. Each
+`SetAlgebra X` inherits its Boolean algebra and inclusion homomorphism from
+the general subalgebra API.
