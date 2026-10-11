@@ -1,4 +1,4 @@
-import Mathlib.SetTheory.Cardinal.Order
+import Mathlib.SetTheory.Cardinal.Basic
 import BooleanAlgebrasDoneRight.Cardinality
 import BooleanAlgebrasDoneRight.Examples.Set
 
