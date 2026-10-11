@@ -91,12 +91,22 @@ instance powerSetBooleanAlgebra (X : Set α) :
     intro a b
     apply Subtype.ext
     ext x
-    simp [psJoin, psMeet]
+    constructor
+    · intro hx
+      rcases hx with hx | hx
+      · exact hx
+      · exact hx.1
+    · intro hx
+      exact Or.inl hx
   meet_absorb_join := by
     intro a b
     apply Subtype.ext
     ext x
-    simp [psMeet, psJoin]
+    constructor
+    · intro hx
+      exact hx.1
+    · intro hx
+      exact ⟨hx, Or.inl hx⟩
   meet_distrib_join := by
     intro a b c
     apply Subtype.ext
@@ -126,7 +136,11 @@ instance powerSetBooleanAlgebra (X : Set α) :
     intro a
     apply Subtype.ext
     ext x
-    simp [psMeet, psCompl]
+    constructor
+    · intro hx
+      exact (hx.2.2 hx.1).elim
+    · intro hx
+      exact False.elim hx
 
 @[simp] theorem val_meet {X : Set α} (a b : PowerSetAlgebra X) :
     ((meet a b : PowerSetAlgebra X) : Set α) = a.1 ∩ b.1 :=
