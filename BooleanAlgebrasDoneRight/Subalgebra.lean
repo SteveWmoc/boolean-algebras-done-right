@@ -39,7 +39,7 @@ variable {A : Type u} [BooleanAlgebra A]
 
 instance : SetLike (Subalgebra A) A where
   coe := carrier
-  coe_injective' := by
+  coe_injective := by
     intro S T h
     cases S
     cases T
