@@ -4,6 +4,8 @@ import BooleanAlgebrasDoneRight.Cardinality
 import BooleanAlgebrasDoneRight.Order
 import BooleanAlgebrasDoneRight.Hom
 import BooleanAlgebrasDoneRight.Iso
+import BooleanAlgebrasDoneRight.Trivial
 import BooleanAlgebrasDoneRight.Category
 import BooleanAlgebrasDoneRight.Examples.Set
+import BooleanAlgebrasDoneRight.Examples.TrivialSet
 import BooleanAlgebrasDoneRight.Mathlib.Bridge
