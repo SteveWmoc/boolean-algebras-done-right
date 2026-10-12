@@ -59,3 +59,9 @@ For infinite `X`, `SetExamples.finiteCofinite_cardinality` proves that this
 algebra has cardinality `Cardinal.mk X`. The construction yields
 `BooleanAlgebra.exists_of_infinite_cardinality`: every infinite cardinal
 is realized by a Boolean algebra.
+
+For any topological space `X`, `SetExamples.ClopenAlgebra X` is the Boolean
+algebra of clopen subsets, constructed as a power set subalgebra.
+`clopenEquiv X` identifies its carrier with the subtype of clopen sets;
+the operation lemmas identify meet, join, and complement with intersection,
+union, and set complement. No separation or compactness assumptions are needed.
