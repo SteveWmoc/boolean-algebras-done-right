@@ -90,3 +90,11 @@ to the quotient. Class equality is provable biconditional equivalence, truth
 is provability, and inconsistency is exactly triviality. No semantic-entailment
 rule or completeness theorem is assumed; full first-order soundness and
 completeness theorems are not part of this construction.
+
+`FirstOrderLogic.variableSubalgebra T V` contains the formula classes admitting
+a representative with free variables in the finite set `V`. Its carrier
+`VariableAlgebra T V` inherits a Boolean algebra and the injective inclusion.
+Membership is equivalently provable biconditional equivalence to such a
+representative; it does not require every representative to have restricted
+free variables. The construction is monotone in `V`, and every class belongs
+to one of these finite-variable subalgebras.
