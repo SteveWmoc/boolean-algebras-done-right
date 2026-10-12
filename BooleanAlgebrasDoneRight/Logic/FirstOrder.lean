@@ -68,6 +68,8 @@ inductive Provable (T : L.Theory) : F L → Prop
   | hypothesis (p : L.Sentence) : p ∈ T → Provable T (sentenceAsFormula p)
   | propositional (p : P L) :
       (∀ w : F L → Prop, p.eval w) → Provable T (interpret p)
+  | implicationDefinition (p q : F L) :
+      Provable T (bicond (p.imp q) (implies p q))
   | universalInst (x : ℕ) (p : F L) (t : L.Term ℕ) :
       Provable T (implies (forallVar x p) (substVar x t p))
   | universalDist (x : ℕ) (p q : F L) :
@@ -177,6 +179,28 @@ theorem equivalent_forall (x : ℕ) (h : Equivalent T p q) :
 theorem forall_elim (x : ℕ) (t : L.Term ℕ) (hp : Provable T (forallVar x p)) :
     Provable T (substVar x t p) :=
   mp (universalInst x p t) hp
+
+/-- Transport a proof along a provable equivalence. -/
+theorem of_equivalent (h : Equivalent T p q) (hp : Provable T p) : Provable T q :=
+  mp (implies_of_equivalent h) hp
+
+/-- The primitive Mathlib implication has its usual classical material meaning. -/
+theorem raw_mp (hi : Provable T (p.imp q)) (hp : Provable T p) : Provable T q :=
+  mp (of_equivalent (implicationDefinition p q) hi) hp
+
+/-- Our material biconditional agrees provably with Mathlib's biconditional. -/
+theorem equivalent_mathlib_iff (p q : F L) :
+    Equivalent T (p.iff q) (bicond p q) :=
+  equivalent_conj (implicationDefinition p q) (implicationDefinition q p)
+
+/-- The quotient relation is provability of the standard Mathlib biconditional. -/
+theorem equivalent_iff_provable_iff (p q : F L) :
+    Equivalent T p q ↔ Provable T (p.iff q) := by
+  constructor
+  · intro h
+    exact of_equivalent (equivalent_symm (equivalent_mathlib_iff p q)) h
+  · intro h
+    exact of_equivalent (equivalent_mathlib_iff p q) h
 
 theorem equivalent_verum_iff (p : F L) :
     Equivalent T p verum ↔ Provable T p := by
