@@ -48,6 +48,11 @@ def classOf (p : F L) : LindenbaumAlgebra T :=
   · intro h
     exact Quotient.sound (s := lindenbaumSetoid T) h
 
+/-- Class equality is exactly provability of Mathlib's first-order biconditional. -/
+theorem classOf_eq_iff_provable_iff (p q : F L) :
+    classOf T p = classOf T q ↔ Provable T (p.iff q) :=
+  (classOf_eq_iff T p q).trans (Provable.equivalent_iff_provable_iff p q)
+
 instance booleanOps : BooleanOps (LindenbaumAlgebra T) where
   meet x y := Quotient.liftOn₂ x y (fun p q => classOf T (conj p q))
     (fun _ _ _ _ hp hq => Quotient.sound (Provable.equivalent_conj hp hq))
