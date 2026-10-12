@@ -1,3 +1,4 @@
+import Mathlib.Data.Set.Basic
 import Mathlib.Tactic.Tauto
 
 /-
@@ -57,7 +58,7 @@ variable {Atom : Type u}
 /-- A proof from an arbitrary theory, in a classical propositional calculus
 with all tautologies as logical axioms and modus ponens as inference rule. -/
 inductive Provable (T : Set (Formula Atom)) : Formula Atom → Prop
-  | axiom {p : Formula Atom} : p ∈ T → Provable T p
+  | hypothesis {p : Formula Atom} : p ∈ T → Provable T p
   | tautology {p : Formula Atom} :
       (∀ v : Atom → Prop, p.eval v) → Provable T p
   | mp {p q : Formula Atom} :
@@ -71,7 +72,7 @@ variable {T : Set (Formula Atom)} {p q r p' q' : Formula Atom}
 theorem sound (hp : Provable T p) (v : Atom → Prop)
     (hv : ∀ a ∈ T, Formula.eval a v) : Formula.eval p v := by
   induction hp with
-  | axiom h => exact hv _ h
+  | hypothesis h => exact hv _ h
   | tautology h => exact h v
   | mp _hi _hp ih ip =>
     change (¬ _ ∨ _) at ih
