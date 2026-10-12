@@ -41,7 +41,12 @@ theorem isSetAlgebra_clopenFamily (X : Type u) [TopologicalSpace X] :
   union_mem := fun hs ht => hs.union ht
   compl_mem := by
     intro s hs
-    simpa only [Set.univ_diff] using hs.compl
+    change IsClopen ((Set.univ : Set X) \ s)
+    have h : (Set.univ : Set X) \ s = sᶜ := by
+      ext x
+      simp
+    rw [h]
+    exact hs.compl
 
 /-- The clopen subalgebra of the power set algebra on `X`. -/
 def clopenSetAlgebra (X : Type u) [TopologicalSpace X] :
@@ -72,8 +77,8 @@ def clopenEquiv (X : Type u) [TopologicalSpace X] :
     ClopenAlgebra X ≃ {s : Set X // IsClopen s} where
   toFun a := ⟨a.1.1, a.2⟩
   invFun s := ⟨⟨s.1, Set.subset_univ _⟩, s.2⟩
-  left_inv a := Subtype.ext (Subtype.ext rfl)
-  right_inv s := Subtype.ext rfl
+  left_inv _a := Subtype.ext (Subtype.ext rfl)
+  right_inv _s := Subtype.ext rfl
 
 @[simp] theorem clopen_val_meet (X : Type u) [TopologicalSpace X]
     (a b : ClopenAlgebra X) :
@@ -87,7 +92,8 @@ def clopenEquiv (X : Type u) [TopologicalSpace X] :
     (a : ClopenAlgebra X) :
     (compl a).1.1 = a.1.1ᶜ := by
   change Set.univ \ a.1.1 = a.1.1ᶜ
-  exact Set.univ_diff _
+  ext x
+  simp
 
 @[simp] theorem clopen_val_zero (X : Type u) [TopologicalSpace X] :
     (zero : ClopenAlgebra X).1.1 = ∅ := rfl
