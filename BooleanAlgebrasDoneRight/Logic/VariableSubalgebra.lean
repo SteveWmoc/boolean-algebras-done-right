@@ -10,7 +10,7 @@ Copyright (c) 2026 Steven Sabean. All rights reserved.
 
 For a finite set `V` of variable names, take the classes that have a
 representative whose free variables lie in `V`. This is a Boolean subalgebra
-of the first-order Lindenbaum algebra.
+of the first-order formula algebra.
 
 The existential representative condition is essential: provably equivalent
 formulas need not have identical syntactic free-variable sets. Membership
@@ -54,14 +54,14 @@ variable {L : _root_.FirstOrder.Language.{u, v}}
 
 /-- Classes admitting a representative with all free variables in `V`. -/
 def variableSubalgebra (T : L.Theory) (V : Finset ℕ) :
-    BooleanAlgebra.Subalgebra (LindenbaumAlgebra T) where
+    BooleanAlgebra.Subalgebra (FormulaAlgebra T) where
   carrier := {a | ∃ p : F L,
-    p.freeVarFinset ⊆ V ∧ LindenbaumAlgebra.classOf T p = a}
+    p.freeVarFinset ⊆ V ∧ FormulaAlgebra.classOf T p = a}
   zero_mem' := ⟨falsum, by simp, rfl⟩
   one_mem' := ⟨verum, by simp, rfl⟩
   meet_mem' := by
     rintro a b ⟨p, hp, rfl⟩ ⟨q, hq, rfl⟩
-    refine ⟨conj p q, ?_, LindenbaumAlgebra.classOf_conj T p q⟩
+    refine ⟨conj p q, ?_, FormulaAlgebra.classOf_conj T p q⟩
     rw [freeVars_conj]
     intro x hx
     rcases Finset.mem_union.mp hx with hx | hx
@@ -69,7 +69,7 @@ def variableSubalgebra (T : L.Theory) (V : Finset ℕ) :
     · exact hq hx
   join_mem' := by
     rintro a b ⟨p, hp, rfl⟩ ⟨q, hq, rfl⟩
-    refine ⟨disj p q, ?_, LindenbaumAlgebra.classOf_disj T p q⟩
+    refine ⟨disj p q, ?_, FormulaAlgebra.classOf_disj T p q⟩
     rw [freeVars_disj]
     intro x hx
     rcases Finset.mem_union.mp hx with hx | hx
@@ -77,25 +77,25 @@ def variableSubalgebra (T : L.Theory) (V : Finset ℕ) :
     · exact hq hx
   compl_mem' := by
     rintro a ⟨p, hp, rfl⟩
-    refine ⟨neg p, ?_, LindenbaumAlgebra.classOf_neg T p⟩
+    refine ⟨neg p, ?_, FormulaAlgebra.classOf_neg T p⟩
     simpa only [freeVars_neg] using hp
 
 @[simp] theorem mem_variableSubalgebra (T : L.Theory) (V : Finset ℕ)
-    (a : LindenbaumAlgebra T) :
+    (a : FormulaAlgebra T) :
     a ∈ variableSubalgebra T V ↔
-      ∃ p : F L, p.freeVarFinset ⊆ V ∧ LindenbaumAlgebra.classOf T p = a :=
+      ∃ p : F L, p.freeVarFinset ⊆ V ∧ FormulaAlgebra.classOf T p = a :=
   Iff.rfl
 
 /-- A formula's class belongs iff it is provably equivalent to a representative
 whose free variables lie in `V`. -/
 theorem classOf_mem_variableSubalgebra_iff (T : L.Theory) (V : Finset ℕ) (p : F L) :
-    LindenbaumAlgebra.classOf T p ∈ variableSubalgebra T V ↔
+    FormulaAlgebra.classOf T p ∈ variableSubalgebra T V ↔
       ∃ q : F L, q.freeVarFinset ⊆ V ∧ Provable T (q.iff p) := by
-  simp only [mem_variableSubalgebra, LindenbaumAlgebra.classOf_eq_iff_provable_iff]
+  simp only [mem_variableSubalgebra, FormulaAlgebra.classOf_eq_iff_provable_iff]
 
 theorem classOf_mem_variableSubalgebra (T : L.Theory) (V : Finset ℕ)
     (p : F L) (hp : p.freeVarFinset ⊆ V) :
-    LindenbaumAlgebra.classOf T p ∈ variableSubalgebra T V :=
+    FormulaAlgebra.classOf T p ∈ variableSubalgebra T V :=
   ⟨p, hp, rfl⟩
 
 /-- The carrier inherits the Boolean algebra and its injective inclusion. -/
@@ -108,14 +108,14 @@ instance variableBooleanAlgebra (T : L.Theory) (V : Finset ℕ) :
 
 /-- Increasing the allowed variables increases the carrier subset. -/
 theorem variableSubalgebra_mono (T : L.Theory) {V W : Finset ℕ} (hVW : V ⊆ W) :
-    (variableSubalgebra T V : Set (LindenbaumAlgebra T)) ⊆
-      (variableSubalgebra T W : Set (LindenbaumAlgebra T)) := by
+    (variableSubalgebra T V : Set (FormulaAlgebra T)) ⊆
+      (variableSubalgebra T W : Set (FormulaAlgebra T)) := by
   rintro a ⟨p, hp, ha⟩
   exact ⟨p, fun x hx => hVW (hp hx), ha⟩
 
 /-- Every formula uses finitely many free variables, so these subalgebras cover
-the entire first-order Lindenbaum algebra. -/
-theorem exists_variableSubalgebra_mem (T : L.Theory) (a : LindenbaumAlgebra T) :
+the entire first-order formula algebra. -/
+theorem exists_variableSubalgebra_mem (T : L.Theory) (a : FormulaAlgebra T) :
     ∃ V : Finset ℕ, a ∈ variableSubalgebra T V := by
   refine Quotient.inductionOn a ?_
   intro p
