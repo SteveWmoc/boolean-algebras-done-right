@@ -54,3 +54,8 @@ the general subalgebra API.
 for which `s` or `X \\ s` is finite. Its closure under the Boolean operations
 is proved through `IsSetAlgebra`, so its Boolean identities are inherited.
 For finite `X`, the finite-cofinite family equals the full power set.
+
+For infinite `X`, `SetExamples.finiteCofinite_cardinality` proves that this
+algebra has cardinality `Cardinal.mk X`. The construction yields
+`BooleanAlgebra.exists_of_infinite_cardinality`: every infinite cardinal
+is realized by a Boolean algebra.
