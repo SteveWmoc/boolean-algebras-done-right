@@ -43,8 +43,12 @@ def classOf (p : Formula Atom) : LindenbaumAlgebra T :=
   Quotient.mk (lindenbaumSetoid T) p
 
 @[simp] theorem classOf_eq_iff (p q : Formula Atom) :
-    classOf T p = classOf T q ↔ Provable.Equivalent T p q :=
-  ⟨Quotient.exact, Quotient.sound⟩
+    classOf T p = classOf T q ↔ Provable.Equivalent T p q := by
+  constructor
+  · intro h
+    exact Quotient.exact h
+  · intro h
+    exact Quotient.sound (s := lindenbaumSetoid T) h
 
 instance booleanOps : BooleanOps (LindenbaumAlgebra T) where
   meet x y := Quotient.liftOn₂ x y (fun p q => classOf T (.conj p q))
