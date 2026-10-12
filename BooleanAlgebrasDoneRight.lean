@@ -3,6 +3,7 @@ import BooleanAlgebrasDoneRight.Basic
 import BooleanAlgebrasDoneRight.Logic.Lindenbaum
 import BooleanAlgebrasDoneRight.Logic.FirstOrderLindenbaum
 import BooleanAlgebrasDoneRight.Logic.VariableSubalgebra
+import BooleanAlgebrasDoneRight.Logic.SentenceLindenbaum
 import BooleanAlgebrasDoneRight.Cardinality
 import BooleanAlgebrasDoneRight.Order
 import BooleanAlgebrasDoneRight.Hom
