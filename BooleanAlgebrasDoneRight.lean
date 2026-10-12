@@ -1,5 +1,7 @@
 import BooleanAlgebrasDoneRight.Signature
 import BooleanAlgebrasDoneRight.Basic
+import BooleanAlgebrasDoneRight.Dual
+import BooleanAlgebrasDoneRight.Duality
 import BooleanAlgebrasDoneRight.Logic.Lindenbaum
 import BooleanAlgebrasDoneRight.Logic.FirstOrderLindenbaum
 import BooleanAlgebrasDoneRight.Logic.VariableSubalgebra

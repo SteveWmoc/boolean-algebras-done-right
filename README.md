@@ -107,3 +107,15 @@ is a Boolean algebra isomorphism with `VariableAlgebra T ∅`, and
 Its image is exactly the empty-variable subalgebra. Class equality is provable
 biconditional equivalence; the truth and inconsistency characterizations hold
 for the sentence algebra as well.
+
+`Dual A` exchanges meet with join and zero with one while retaining complement.
+Instantiate an existing theorem on `Dual A`, then use the `Dual.ofDual_*`
+simplification lemmas to obtain its dual. `Dual.doubleDualIso A` identifies the
+double dual with the original algebra.
+
+`BooleanDuality.Term` and `BooleanDuality.Statement` provide explicit syntax
+for the algebra signature and first-order statements, including quantifiers.
+Syntactic dualization is involutive. `Statement.eval_dual` relates evaluation
+in the dual algebra to evaluation of the dual statement; `Statement.Valid.dual`
+proves the duality principle for universal validity. Logical connectives and
+quantifiers are retained, as is Boolean complement.
