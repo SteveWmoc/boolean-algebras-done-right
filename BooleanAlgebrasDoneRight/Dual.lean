@@ -85,7 +85,7 @@ def doubleDualIso (A : Type u) [BooleanAlgebra A] :
 /-- A proof-reuse example: the dual of the join-one law is the meet-zero law. -/
 theorem meet_zero_from_dual (a : A) : meet a zero = zero := by
   have h := BooleanAlgebra.join_one (α := Dual A) (toDual a)
-  simpa using congrArg ofDual h
+  simpa only [ofDual_join, ofDual_toDual, ofDual_one] using congrArg ofDual h
 
 end Dual
 
