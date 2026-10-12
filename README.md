@@ -49,3 +49,8 @@ under binary intersection, binary union, and relative complement in `X`.
 `SetAlgebra.equivFamilies X` proves the two presentations equivalent. Each
 `SetAlgebra X` inherits its Boolean algebra and inclusion homomorphism from
 the general subalgebra API.
+
+`SetExamples.FiniteCofiniteAlgebra X` is the Boolean algebra of subsets `s ⊆ X`
+for which `s` or `X \\ s` is finite. Its closure under the Boolean operations
+is proved through `IsSetAlgebra`, so its Boolean identities are inherited.
+For finite `X`, the finite-cofinite family equals the full power set.
