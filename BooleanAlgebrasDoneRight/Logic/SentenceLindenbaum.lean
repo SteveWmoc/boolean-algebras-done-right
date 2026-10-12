@@ -86,16 +86,13 @@ theorem toClosedSubalgebra_injective :
   refine Quotient.inductionOn₂ a b ?_
   intro p q h
   apply Quotient.sound (s := sentenceSetoid T)
-  exact Quotient.exact (congrArg Subtype.val h)
+  exact Quotient.exact (s := formulaSetoid T) (congrArg Subtype.val h)
 
 theorem toClosedSubalgebra_surjective :
     Function.Surjective (toClosedSubalgebra T) := by
   intro a
   obtain ⟨p, hp, ha⟩ := a.2
-  have hclosed : p.freeVarFinset = ∅ := by
-    apply Finset.eq_empty_iff_forall_not_mem.mpr
-    intro x hx
-    exact Finset.not_mem_empty x (hp hx)
+  have hclosed : p.freeVarFinset = ∅ := Finset.subset_empty.mp hp
   refine ⟨classOf T ⟨p, hclosed⟩, ?_⟩
   apply Subtype.ext
   exact ha
@@ -147,62 +144,52 @@ instance booleanAlgebra : BooleanAlgebra (LindenbaumAlgebra T) where
   meet_assoc := by
     intro a b c
     apply toClosedSubalgebra_injective T
-    simp only [toClosedSubalgebra_meet, toClosedSubalgebra_join,
-      toClosedSubalgebra_compl, toClosedSubalgebra_zero, toClosedSubalgebra_one]
+    simp only [toClosedSubalgebra_meet]
     exact BooleanAlgebra.meet_assoc (toClosedSubalgebra T a) (toClosedSubalgebra T b) (toClosedSubalgebra T c)
   meet_comm := by
     intro a b
     apply toClosedSubalgebra_injective T
-    simp only [toClosedSubalgebra_meet, toClosedSubalgebra_join,
-      toClosedSubalgebra_compl, toClosedSubalgebra_zero, toClosedSubalgebra_one]
+    simp only [toClosedSubalgebra_meet]
     exact BooleanAlgebra.meet_comm (toClosedSubalgebra T a) (toClosedSubalgebra T b)
   join_assoc := by
     intro a b c
     apply toClosedSubalgebra_injective T
-    simp only [toClosedSubalgebra_meet, toClosedSubalgebra_join,
-      toClosedSubalgebra_compl, toClosedSubalgebra_zero, toClosedSubalgebra_one]
+    simp only [toClosedSubalgebra_join]
     exact BooleanAlgebra.join_assoc (toClosedSubalgebra T a) (toClosedSubalgebra T b) (toClosedSubalgebra T c)
   join_comm := by
     intro a b
     apply toClosedSubalgebra_injective T
-    simp only [toClosedSubalgebra_meet, toClosedSubalgebra_join,
-      toClosedSubalgebra_compl, toClosedSubalgebra_zero, toClosedSubalgebra_one]
+    simp only [toClosedSubalgebra_join]
     exact BooleanAlgebra.join_comm (toClosedSubalgebra T a) (toClosedSubalgebra T b)
   join_absorb_meet := by
     intro a b
     apply toClosedSubalgebra_injective T
-    simp only [toClosedSubalgebra_meet, toClosedSubalgebra_join,
-      toClosedSubalgebra_compl, toClosedSubalgebra_zero, toClosedSubalgebra_one]
+    simp only [toClosedSubalgebra_meet, toClosedSubalgebra_join]
     exact BooleanAlgebra.join_absorb_meet (toClosedSubalgebra T a) (toClosedSubalgebra T b)
   meet_absorb_join := by
     intro a b
     apply toClosedSubalgebra_injective T
-    simp only [toClosedSubalgebra_meet, toClosedSubalgebra_join,
-      toClosedSubalgebra_compl, toClosedSubalgebra_zero, toClosedSubalgebra_one]
+    simp only [toClosedSubalgebra_meet, toClosedSubalgebra_join]
     exact BooleanAlgebra.meet_absorb_join (toClosedSubalgebra T a) (toClosedSubalgebra T b)
   meet_distrib_join := by
     intro a b c
     apply toClosedSubalgebra_injective T
-    simp only [toClosedSubalgebra_meet, toClosedSubalgebra_join,
-      toClosedSubalgebra_compl, toClosedSubalgebra_zero, toClosedSubalgebra_one]
+    simp only [toClosedSubalgebra_meet, toClosedSubalgebra_join]
     exact BooleanAlgebra.meet_distrib_join (toClosedSubalgebra T a) (toClosedSubalgebra T b) (toClosedSubalgebra T c)
   join_distrib_meet := by
     intro a b c
     apply toClosedSubalgebra_injective T
-    simp only [toClosedSubalgebra_meet, toClosedSubalgebra_join,
-      toClosedSubalgebra_compl, toClosedSubalgebra_zero, toClosedSubalgebra_one]
+    simp only [toClosedSubalgebra_meet, toClosedSubalgebra_join]
     exact BooleanAlgebra.join_distrib_meet (toClosedSubalgebra T a) (toClosedSubalgebra T b) (toClosedSubalgebra T c)
   join_compl := by
     intro a
     apply toClosedSubalgebra_injective T
-    simp only [toClosedSubalgebra_meet, toClosedSubalgebra_join,
-      toClosedSubalgebra_compl, toClosedSubalgebra_zero, toClosedSubalgebra_one]
+    simp only [toClosedSubalgebra_join, toClosedSubalgebra_compl, toClosedSubalgebra_one]
     exact BooleanAlgebra.join_compl (toClosedSubalgebra T a)
   meet_compl := by
     intro a
     apply toClosedSubalgebra_injective T
-    simp only [toClosedSubalgebra_meet, toClosedSubalgebra_join,
-      toClosedSubalgebra_compl, toClosedSubalgebra_zero, toClosedSubalgebra_one]
+    simp only [toClosedSubalgebra_meet, toClosedSubalgebra_compl, toClosedSubalgebra_zero]
     exact BooleanAlgebra.meet_compl (toClosedSubalgebra T a)
 
 /-- The sentence quotient is isomorphic to the empty-variable subalgebra. -/
