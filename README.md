@@ -80,7 +80,7 @@ Boolean connectives. The quotient is a Boolean algebra, its truth class is
 exactly the provable formulas, and it is trivial exactly when falsity is
 provable.
 
-`FirstOrderLogic.LindenbaumAlgebra T` extends this to Mathlib first-order
+`FirstOrderLogic.FormulaAlgebra T` extends this to Mathlib first-order
 formulas with natural-number free variables and any theory of sentences.
 The Hilbert calculus includes capture-avoiding universal instantiation,
 universal distribution, vacuous generalization, equality reflexivity and
@@ -98,3 +98,12 @@ Membership is equivalently provable biconditional equivalence to such a
 representative; it does not require every representative to have restricted
 free variables. The construction is monotone in `V`, and every class belongs
 to one of these finite-variable subalgebras.
+
+`FirstOrderLogic.LindenbaumAlgebra T` is reserved for the sentence quotient.
+`ClosedFormula L` represents sentences as formulas with no free variables
+in the existing natural-number variable syntax. `LindenbaumAlgebra.closedSubalgebraIso T`
+is a Boolean algebra isomorphism with `VariableAlgebra T ∅`, and
+`LindenbaumAlgebra.inclusion T` embeds it into the larger `FormulaAlgebra T`.
+Its image is exactly the empty-variable subalgebra. Class equality is provable
+biconditional equivalence; the truth and inconsistency characterizations hold
+for the sentence algebra as well.
