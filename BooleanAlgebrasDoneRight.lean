@@ -1,6 +1,7 @@
 import BooleanAlgebrasDoneRight.Signature
 import BooleanAlgebrasDoneRight.Basic
 import BooleanAlgebrasDoneRight.Logic.Lindenbaum
+import BooleanAlgebrasDoneRight.Logic.FirstOrderLindenbaum
 import BooleanAlgebrasDoneRight.Cardinality
 import BooleanAlgebrasDoneRight.Order
 import BooleanAlgebrasDoneRight.Hom

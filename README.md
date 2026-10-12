@@ -78,5 +78,15 @@ Derivability is inductive (theory axioms, classical tautologies, modus ponens);
 provable equivalence is an equivalence relation and a congruence for the
 Boolean connectives. The quotient is a Boolean algebra, its truth class is
 exactly the provable formulas, and it is trivial exactly when falsity is
-provable. This is the propositional foundation; a first-order derivability
-calculus is a future extension.
+provable.
+
+`FirstOrderLogic.LindenbaumAlgebra T` extends this to Mathlib first-order
+formulas with natural-number free variables and any theory of sentences.
+The Hilbert calculus includes capture-avoiding universal instantiation,
+universal distribution, vacuous generalization, equality reflexivity and
+substitution, modus ponens, and universal generalization. Boolean laws follow
+by lifting propositional derivations. Universal quantification also descends
+to the quotient. Class equality is provable biconditional equivalence, truth
+is provability, and inconsistency is exactly triviality. No semantic-entailment
+rule or completeness theorem is assumed; full first-order soundness and
+completeness theorems are not part of this construction.
