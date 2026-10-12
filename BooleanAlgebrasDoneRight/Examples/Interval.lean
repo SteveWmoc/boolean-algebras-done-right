@@ -1,3 +1,4 @@
+import Mathlib.Data.Finset.Insert
 import Mathlib.Data.Finset.Lattice.Basic
 import Mathlib.Order.Interval.Set.LinearOrder
 import BooleanAlgebrasDoneRight.Examples.SetAlgebra
