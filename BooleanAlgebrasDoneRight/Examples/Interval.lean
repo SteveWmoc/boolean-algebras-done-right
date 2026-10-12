@@ -1,3 +1,4 @@
+import Mathlib.Data.Finset.Lattice.Basic
 import Mathlib.Order.Interval.Set.LinearOrder
 import BooleanAlgebrasDoneRight.Examples.SetAlgebra
 
@@ -65,7 +66,7 @@ theorem finite_endpoints {s : Set X} (hs : InIntervalAlgebra s) :
     refine ⟨{a}, ?_⟩
     intro x y h
     exact h a (by simp)
-  | union hs ht ihs iht =>
+  | union _hs _ht ihs iht =>
     obtain ⟨p, hp⟩ := ihs
     obtain ⟨q, hq⟩ := iht
     refine ⟨p ∪ q, ?_⟩
@@ -73,7 +74,7 @@ theorem finite_endpoints {s : Set X} (hs : InIntervalAlgebra s) :
     exact or_congr
       (hp x y (fun a ha => h a (Finset.mem_union.mpr (Or.inl ha))))
       (hq x y (fun a ha => h a (Finset.mem_union.mpr (Or.inr ha))))
-  | compl hs ih =>
+  | compl _hs ih =>
     obtain ⟨t, ht⟩ := ih
     exact ⟨t, fun x y h => not_congr (ht x y h)⟩
 
@@ -114,8 +115,8 @@ theorem intervalFamily_minimal (F : Set (Set X))
   induction hs with
   | empty => exact hF.empty_mem
   | initial a => exact hinitial a
-  | union hs ht ihs iht => exact hF.union_mem ihs iht
-  | @compl s hs ih =>
+  | union _hs _ht ihs iht => exact hF.union_mem ihs iht
+  | @compl s _hs ih =>
     have h := hF.compl_mem ih
     have heq : (Set.univ : Set X) \ s = sᶜ := by
       ext x
