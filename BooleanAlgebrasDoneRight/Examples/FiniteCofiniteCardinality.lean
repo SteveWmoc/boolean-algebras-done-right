@@ -1,4 +1,5 @@
 import Mathlib.SetTheory.Cardinal.Arithmetic
+import BooleanAlgebrasDoneRight.Cardinality
 import BooleanAlgebrasDoneRight.Examples.FiniteCofinite
 
 /-
