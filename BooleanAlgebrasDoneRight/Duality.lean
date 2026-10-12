@@ -123,6 +123,7 @@ theorem eval_dual {A : Type u} [BooleanAlgebra A] (p : Statement) (env : Nat →
     change Dual.ofDual (s.eval (fun x => Dual.toDual (env x))) =
       Dual.ofDual (t.eval (fun x => Dual.toDual (env x))) ↔ _
     rw [Term.eval_dual, Term.eval_dual]
+    rfl
   | neg p ih => exact not_congr (ih env)
   | conj p q ihp ihq => exact and_congr (ihp env) (ihq env)
   | disj p q ihp ihq => exact or_congr (ihp env) (ihq env)
@@ -155,8 +156,8 @@ def Valid (p : Statement) : Prop :=
 dual statement valid in every Boolean algebra. -/
 theorem Valid.dual {p : Statement} (h : Valid.{u} p) : Valid.{u} p.dual := by
   intro A hA env
-  haveI := hA
-  exact (eval_dual p env).mp (h (Dual A) inferInstance (fun x => Dual.toDual (env x)))
+  exact (@eval_dual A hA p env).mp
+    (h (Dual A) (@Dual.booleanAlgebra A hA) (fun x => Dual.toDual (env x)))
 
 /-- Universal validity is equivalent to validity of the dual statement. -/
 theorem valid_dual_iff (p : Statement) : Valid.{u} p.dual ↔ Valid.{u} p := by
