@@ -23,7 +23,7 @@ namespace BooleanAlgebrasDoneRight.BooleanDuality
 
 /-- Terms in the intrinsic Boolean-algebra signature. -/
 inductive Term
-  | var : ℕ → Term
+  | var : Nat → Term
   | zero : Term
   | one : Term
   | meet : Term → Term → Term
@@ -43,7 +43,7 @@ def dual : Term → Term
 @[simp] theorem dual_dual (t : Term) : t.dual.dual = t := by
   induction t <;> simp_all [dual]
 
-def eval {A : Type u} [BooleanAlgebra A] : Term → (ℕ → A) → A
+def eval {A : Type u} [BooleanAlgebra A] : Term → (Nat → A) → A
   | .var x, env => env x
   | .zero, _ => BooleanOps.zero
   | .one, _ => BooleanOps.one
@@ -53,7 +53,7 @@ def eval {A : Type u} [BooleanAlgebra A] : Term → (ℕ → A) → A
 
 /-- Term evaluation in the dual algebra exchanges exactly the signature
 symbols swapped by syntactic dualization. -/
-theorem eval_dual {A : Type u} [BooleanAlgebra A] (t : Term) (env : ℕ → A) :
+theorem eval_dual {A : Type u} [BooleanAlgebra A] (t : Term) (env : Nat → A) :
     Dual.ofDual (t.eval (fun x => Dual.toDual (env x))) = t.dual.eval env := by
   induction t <;> simp_all [eval, dual]
 
@@ -70,14 +70,14 @@ inductive Statement
   | disj : Statement → Statement → Statement
   | imp : Statement → Statement → Statement
   | iff : Statement → Statement → Statement
-  | all : ℕ → Statement → Statement
-  | ex : ℕ → Statement → Statement
+  | all : Nat → Statement → Statement
+  | ex : Nat → Statement → Statement
 
 /-- Assign a value to one variable while preserving the others. -/
-def setVar {A : Type u} (env : ℕ → A) (x : ℕ) (a : A) : ℕ → A :=
+def setVar {A : Type u} (env : Nat → A) (x : Nat) (a : A) : Nat → A :=
   fun y => if y = x then a else env y
 
-theorem map_setVar {A : Type u} (env : ℕ → A) (x : ℕ) (a : A) :
+theorem map_setVar {A : Type u} (env : Nat → A) (x : Nat) (a : A) :
     (fun y => Dual.toDual (setVar env x a y)) =
       setVar (fun y => Dual.toDual (env y)) x (Dual.toDual a) := by
   funext y
@@ -100,7 +100,7 @@ def dual : Statement → Statement
 @[simp] theorem dual_dual (p : Statement) : p.dual.dual = p := by
   induction p <;> simp_all [dual]
 
-def eval {A : Type u} [BooleanAlgebra A] : Statement → (ℕ → A) → Prop
+def eval {A : Type u} [BooleanAlgebra A] : Statement → (Nat → A) → Prop
   | .truth, _ => True
   | .falsity, _ => False
   | .eq s t, env => s.eval env = t.eval env
@@ -114,7 +114,7 @@ def eval {A : Type u} [BooleanAlgebra A] : Statement → (ℕ → A) → Prop
 
 /-- Evaluating a statement in the dual is the same as evaluating the
 dual statement in the original algebra. -/
-theorem eval_dual {A : Type u} [BooleanAlgebra A] (p : Statement) (env : ℕ → A) :
+theorem eval_dual {A : Type u} [BooleanAlgebra A] (p : Statement) (env : Nat → A) :
     p.eval (fun x => Dual.toDual (env x)) ↔ p.dual.eval env := by
   induction p generalizing env with
   | truth => rfl
@@ -149,7 +149,7 @@ theorem eval_dual {A : Type u} [BooleanAlgebra A] (p : Statement) (env : ℕ →
 /-- Validity for all Boolean algebras and assignments in a fixed universe.
 The duality theorem is universe-polymorphic. -/
 def Valid (p : Statement) : Prop :=
-  ∀ (A : Type u) (hA : BooleanAlgebra A) (env : ℕ → A), @eval A hA p env
+  ∀ (A : Type u) (hA : BooleanAlgebra A) (env : Nat → A), @eval A hA p env
 
 /-- The duality principle: a statement valid in every Boolean algebra has a
 dual statement valid in every Boolean algebra. -/
