@@ -32,7 +32,7 @@ def ofDual (a : Dual A) : A := a
 @[simp] theorem ofDual_toDual (a : A) : ofDual (toDual a) = a := rfl
 @[simp] theorem toDual_ofDual (a : Dual A) : toDual (ofDual a) = a := rfl
 
-instance [BooleanAlgebra A] : BooleanAlgebra (Dual A) where
+instance booleanAlgebra [BooleanAlgebra A] : BooleanAlgebra (Dual A) where
   meet a b := toDual (join (ofDual a) (ofDual b))
   join a b := toDual (meet (ofDual a) (ofDual b))
   compl a := toDual (compl (ofDual a))
