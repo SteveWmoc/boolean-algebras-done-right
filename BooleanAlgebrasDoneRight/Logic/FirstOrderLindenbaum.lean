@@ -6,7 +6,7 @@ Copyright (c) 2026 Steven Sabean. All rights reserved.
 -/
 
 /-!
-# The first-order Lindenbaum–Tarski algebra
+# The first-order formula algebra
 
 For any first-order language and theory of sentences, quotient all formulas
 with natural-number free variables by provable biconditional equivalence.
@@ -24,21 +24,21 @@ namespace BooleanAlgebrasDoneRight.FirstOrderLogic
 
 variable {L : _root_.FirstOrder.Language.{u, v}}
 
-def lindenbaumSetoid (T : L.Theory) : Setoid (F L) where
+def formulaSetoid (T : L.Theory) : Setoid (F L) where
   r := Provable.Equivalent T
   iseqv := ⟨Provable.equivalent_refl, fun h => Provable.equivalent_symm h,
     fun h₁ h₂ => Provable.equivalent_trans h₁ h₂⟩
 
 /-- First-order formulas modulo provable equivalence relative to `T`. -/
-def LindenbaumAlgebra (T : L.Theory) : Type max u v :=
-  Quotient (lindenbaumSetoid T)
+def FormulaAlgebra (T : L.Theory) : Type max u v :=
+  Quotient (formulaSetoid T)
 
-namespace LindenbaumAlgebra
+namespace FormulaAlgebra
 
 variable (T : L.Theory)
 
-def classOf (p : F L) : LindenbaumAlgebra T :=
-  Quotient.mk (lindenbaumSetoid T) p
+def classOf (p : F L) : FormulaAlgebra T :=
+  Quotient.mk (formulaSetoid T) p
 
 @[simp] theorem classOf_eq_iff (p q : F L) :
     classOf T p = classOf T q ↔ Provable.Equivalent T p q := by
@@ -46,14 +46,14 @@ def classOf (p : F L) : LindenbaumAlgebra T :=
   · intro h
     exact Quotient.exact h
   · intro h
-    exact Quotient.sound (s := lindenbaumSetoid T) h
+    exact Quotient.sound (s := formulaSetoid T) h
 
 /-- Class equality is exactly provability of Mathlib's first-order biconditional. -/
 theorem classOf_eq_iff_provable_iff (p q : F L) :
     classOf T p = classOf T q ↔ Provable T (p.iff q) :=
   (classOf_eq_iff T p q).trans (Provable.equivalent_iff_provable_iff p q)
 
-instance booleanOps : BooleanOps (LindenbaumAlgebra T) where
+instance booleanOps : BooleanOps (FormulaAlgebra T) where
   meet x y := Quotient.liftOn₂ x y (fun p q => classOf T (conj p q))
     (fun _ _ _ _ hp hq => Quotient.sound (Provable.equivalent_conj hp hq))
   join x y := Quotient.liftOn₂ x y (fun p q => classOf T (disj p q))
@@ -63,7 +63,7 @@ instance booleanOps : BooleanOps (LindenbaumAlgebra T) where
   zero := classOf T falsum
   one := classOf T verum
 
-instance booleanAlgebra : BooleanAlgebra (LindenbaumAlgebra T) where
+instance booleanAlgebra : BooleanAlgebra (FormulaAlgebra T) where
   toBooleanOps := inferInstance
   meet_assoc := by
     intro x y z
@@ -180,18 +180,18 @@ theorem classOf_sentence_eq_one {p : L.Sentence} (hp : p ∈ T) :
   (classOf_eq_one_iff T _).mpr (Provable.hypothesis p hp)
 
 theorem subsingleton_iff_provable_falsum :
-    Subsingleton (LindenbaumAlgebra T) ↔ Provable T falsum := by
+    Subsingleton (FormulaAlgebra T) ↔ Provable T falsum := by
   rw [BooleanAlgebra.subsingleton_iff_zero_eq_one]
   exact classOf_eq_one_iff T falsum
 
 /-- Universal quantification is independent of the chosen representative. -/
-def all (x : ℕ) (a : LindenbaumAlgebra T) : LindenbaumAlgebra T :=
+def all (x : ℕ) (a : FormulaAlgebra T) : FormulaAlgebra T :=
   Quotient.liftOn a (fun p => classOf T (forallVar x p))
     (fun _ _ h => Quotient.sound (Provable.equivalent_forall x h))
 
 @[simp] theorem classOf_forall (x : ℕ) (p : F L) :
     classOf T (forallVar x p) = all T x (classOf T p) := rfl
 
-end LindenbaumAlgebra
+end FormulaAlgebra
 
 end BooleanAlgebrasDoneRight.FirstOrderLogic
