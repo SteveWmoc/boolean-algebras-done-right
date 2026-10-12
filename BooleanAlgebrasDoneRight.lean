@@ -9,6 +9,7 @@ import BooleanAlgebrasDoneRight.Trivial
 import BooleanAlgebrasDoneRight.Category
 import BooleanAlgebrasDoneRight.Examples.Set
 import BooleanAlgebrasDoneRight.Examples.SetAlgebra
+import BooleanAlgebrasDoneRight.Examples.Interval
 import BooleanAlgebrasDoneRight.Examples.Clopen
 import BooleanAlgebrasDoneRight.Examples.FiniteCofinite
 import BooleanAlgebrasDoneRight.Examples.FiniteCofiniteCardinality
