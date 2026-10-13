@@ -25,7 +25,7 @@ namespace LatticeTheory
 theorem sup_distrib_inf_of_inf_distrib_sup {α : Type u} [Lattice α]
     (h : ∀ x y z : α, x ⊓ (y ⊔ z) = (x ⊓ y) ⊔ (x ⊓ z)) :
     ∀ x y z : α, x ⊔ (y ⊓ z) = (x ⊔ y) ⊓ (x ⊔ z) := by
-  letI : DistribLattice α := DistribLattice.ofInfSupLe
+  let : DistribLattice α := DistribLattice.ofInfSupLe
     (fun x y z => le_of_eq (h x y z))
   exact sup_inf_left
 
@@ -33,7 +33,7 @@ theorem sup_distrib_inf_of_inf_distrib_sup {α : Type u} [Lattice α]
 theorem inf_distrib_sup_of_sup_distrib_inf {α : Type u} [Lattice α]
     (h : ∀ x y z : α, x ⊔ (y ⊓ z) = (x ⊔ y) ⊓ (x ⊔ z)) :
     ∀ x y z : α, x ⊓ (y ⊔ z) = (x ⊓ y) ⊔ (x ⊓ z) := by
-  letI : DistribLattice α :=
+  let : DistribLattice α :=
     { toLattice := inferInstance
       le_sup_inf := fun x y z => le_of_eq (h x y z).symm }
   exact inf_sup_left
