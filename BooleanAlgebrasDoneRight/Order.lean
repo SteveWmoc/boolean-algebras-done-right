@@ -47,7 +47,7 @@ theorem le_trans {x y z : α} (hxy : le x y) (hyz : le y z) : le x z := by
     _ = z := hyz
 
 /-- The canonical partial order derived from the algebraic Boolean laws. -/
-def partialOrder (α : Type u) [BooleanAlgebra α] : PartialOrder α where
+abbrev partialOrder (α : Type u) [BooleanAlgebra α] : PartialOrder α where
   le := BooleanAlgebra.le
   le_refl := BooleanAlgebra.le_refl
   le_trans := fun _ _ _ => BooleanAlgebra.le_trans
