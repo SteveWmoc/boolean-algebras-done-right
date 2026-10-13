@@ -19,6 +19,33 @@ namespace BooleanAlgebrasDoneRight
 
 open BooleanOps
 
+namespace LatticeTheory
+
+/-- In any lattice, meet distributing over join implies the dual law. -/
+theorem sup_distrib_inf_of_inf_distrib_sup {α : Type u} [Lattice α]
+    (h : ∀ x y z : α, x ⊓ (y ⊔ z) = (x ⊓ y) ⊔ (x ⊓ z)) :
+    ∀ x y z : α, x ⊔ (y ⊓ z) = (x ⊔ y) ⊓ (x ⊔ z) := by
+  let : DistribLattice α := DistribLattice.ofInfSupLe
+    (fun x y z => le_of_eq (h x y z))
+  exact sup_inf_left
+
+/-- In any lattice, join distributing over meet implies the dual law. -/
+theorem inf_distrib_sup_of_sup_distrib_inf {α : Type u} [Lattice α]
+    (h : ∀ x y z : α, x ⊔ (y ⊓ z) = (x ⊔ y) ⊓ (x ⊔ z)) :
+    ∀ x y z : α, x ⊓ (y ⊔ z) = (x ⊓ y) ⊔ (x ⊓ z) := by
+  let : DistribLattice α :=
+    { toLattice := inferInstance
+      le_sup_inf := fun x y z => le_of_eq (h x y z).symm }
+  exact inf_sup_left
+
+/-- Either distributive identity suffices in an arbitrary lattice. -/
+theorem distributive_iff {α : Type u} [Lattice α] :
+    (∀ x y z : α, x ⊓ (y ⊔ z) = (x ⊓ y) ⊔ (x ⊓ z)) ↔
+      (∀ x y z : α, x ⊔ (y ⊓ z) = (x ⊔ y) ⊓ (x ⊔ z)) :=
+  ⟨sup_distrib_inf_of_inf_distrib_sup, inf_distrib_sup_of_sup_distrib_inf⟩
+
+end LatticeTheory
+
 namespace BooleanAlgebra
 
 variable {α : Type u} [BooleanAlgebra α]
@@ -113,6 +140,12 @@ abbrev lattice (α : Type u) [BooleanAlgebra α] : Lattice α where
   inf_le_left := meet_le_left
   inf_le_right := meet_le_right
   le_inf := fun _ _ _ => le_meet
+
+/-- The derived lattice is distributive; the meet distributive law alone suffices. -/
+abbrev distribLattice (α : Type u) [BooleanAlgebra α] : DistribLattice α := by
+  letI := lattice α
+  exact DistribLattice.ofInfSupLe
+    (fun x y z => le_of_eq (meet_distrib_join x y z))
 
 end BooleanAlgebra
 

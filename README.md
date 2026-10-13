@@ -132,3 +132,9 @@ order. `join_le_iff` and `le_meet_iff` express their universal properties.
 derived order, with supremum equal to the original join and infimum equal to
 the original meet. Install it locally with `letI := BooleanAlgebra.lattice A`
 to use Mathlib's lattice API.
+
+`BooleanAlgebra.distribLattice A` upgrades the derived lattice to a
+`DistribLattice A`, using only the meet distributive axiom. For any lattice,
+`LatticeTheory.distributive_iff` proves that meet distributing over join is
+equivalent to join distributing over meet; neither complements nor bounds
+are needed for this equivalence.
