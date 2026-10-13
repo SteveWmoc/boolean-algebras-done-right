@@ -1,5 +1,6 @@
 import BooleanAlgebrasDoneRight.Basic
 import Mathlib.Order.Lattice
+import Mathlib.Order.BoundedOrder.Basic
 
 /-!
 # The order and lattice derived from Boolean operations
@@ -146,6 +147,32 @@ abbrev distribLattice (α : Type u) [BooleanAlgebra α] : DistribLattice α := b
   letI := lattice α
   exact DistribLattice.ofInfSupLe
     (fun x y z => le_of_eq (meet_distrib_join x y z))
+
+/-- Zero is the least element of the derived order. -/
+theorem zero_le (x : α) : le zero x := zero_join x
+
+/-- One is the greatest element of the derived order. -/
+theorem le_one (x : α) : le x one := join_one x
+
+theorem le_zero_iff (x : α) : le x zero ↔ x = zero :=
+  ⟨fun h => le_antisymm h (zero_le x), fun h => h ▸ le_refl zero⟩
+
+theorem one_le_iff (x : α) : le one x ↔ x = one :=
+  ⟨fun h => le_antisymm (le_one x) h, fun h => h ▸ le_refl one⟩
+
+/-- Bounds for the derived distributive lattice, with bottom zero and top one.
+
+Install `distribLattice α` and then `boundedOrder α` locally to use
+the bounded distributive lattice API. -/
+abbrev boundedOrder (α : Type u) [BooleanAlgebra α] :
+    letI := distribLattice α
+    BoundedOrder α := by
+  letI := distribLattice α
+  exact
+    { bot := zero
+      top := one
+      bot_le := zero_le
+      le_top := le_one }
 
 end BooleanAlgebra
 
