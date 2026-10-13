@@ -87,6 +87,11 @@ theorem meet_zero_from_dual (a : A) : meet a zero = zero := by
   have h := BooleanAlgebra.join_one (α := Dual A) (toDual a)
   simpa only [ofDual_join, ofDual_toDual, ofDual_one] using congrArg ofDual h
 
+/-- Meet idempotence obtained by applying join idempotence in the dual algebra. -/
+theorem meet_idem_from_dual (a : A) : meet a a = a := by
+  have h := BooleanAlgebra.join_idem (α := Dual A) (toDual a)
+  simpa only [ofDual_join, ofDual_toDual] using congrArg ofDual h
+
 end Dual
 
 end BooleanAlgebrasDoneRight
