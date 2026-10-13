@@ -63,6 +63,21 @@ variable {α : Type u} [BooleanAlgebra α]
       rw [BooleanAlgebra.join_absorb_meet]
     _ = x := BooleanAlgebra.meet_absorb_join x (meet x x)
 
+/-- The join and meet equations give equivalent characterizations of the order. -/
+theorem join_eq_right_iff_meet_eq_left (x y : α) :
+    join x y = y ↔ meet x y = x := by
+  constructor
+  · intro h
+    calc
+      meet x y = meet x (join x y) := congrArg (meet x) h.symm
+      _ = x := BooleanAlgebra.meet_absorb_join x y
+  · intro h
+    calc
+      join x y = join y x := BooleanAlgebra.join_comm x y
+      _ = join y (meet x y) := congrArg (join y) h.symm
+      _ = join y (meet y x) := congrArg (join y) (BooleanAlgebra.meet_comm x y)
+      _ = y := BooleanAlgebra.join_absorb_meet y x
+
 /-- `zero` is a right identity for join. -/
 @[simp] theorem join_zero (x : α) : join x zero = x := by
   calc
