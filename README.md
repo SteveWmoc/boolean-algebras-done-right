@@ -119,3 +119,9 @@ Syntactic dualization is involutive. `Statement.eval_dual` relates evaluation
 in the dual algebra to evaluation of the dual statement; `Statement.Valid.dual`
 proves the duality principle for universal validity. Logical connectives and
 quantifiers are retained, as is Boolean complement.
+
+`BooleanAlgebra.le x y` is defined by `join x y = y`, equivalently
+`meet x y = x`. Reflexivity, antisymmetry, and transitivity follow from
+the algebraic laws. `BooleanAlgebra.partialOrder A` packages this relation
+as a `PartialOrder A`; use `letI := BooleanAlgebra.partialOrder A` to install
+it locally and use the usual order notation.
