@@ -125,3 +125,10 @@ quantifiers are retained, as is Boolean complement.
 the algebraic laws. `BooleanAlgebra.partialOrder A` packages this relation
 as a `PartialOrder A`; use `letI := BooleanAlgebra.partialOrder A` to install
 it locally and use the usual order notation.
+
+Join is the least upper bound and meet is the greatest lower bound for this
+order. `join_le_iff` and `le_meet_iff` express their universal properties.
+`BooleanAlgebra.lattice A` packages these proofs as a `Lattice A` on the same
+derived order, with supremum equal to the original join and infimum equal to
+the original meet. Install it locally with `letI := BooleanAlgebra.lattice A`
+to use Mathlib's lattice API.
