@@ -155,10 +155,10 @@ theorem zero_le (x : α) : le zero x := zero_join x
 theorem le_one (x : α) : le x one := join_one x
 
 theorem le_zero_iff (x : α) : le x zero ↔ x = zero :=
-  ⟨fun h => le_antisymm h (zero_le x), fun h => h ▸ le_refl zero⟩
+  ⟨fun h => le_antisymm h (zero_le x), by intro h; subst x; exact le_refl zero⟩
 
 theorem one_le_iff (x : α) : le one x ↔ x = one :=
-  ⟨fun h => le_antisymm (le_one x) h, fun h => h ▸ le_refl one⟩
+  ⟨fun h => le_antisymm (le_one x) h, by intro h; subst x; exact le_refl one⟩
 
 /-- Bounds for the derived distributive lattice, with bottom zero and top one.
 
