@@ -1,6 +1,7 @@
 import BooleanAlgebrasDoneRight.Basic
 import Mathlib.Order.Lattice
 import Mathlib.Order.BoundedOrder.Basic
+import Mathlib.Order.Disjoint
 
 /-!
 # The order and lattice derived from Boolean operations
@@ -173,6 +174,30 @@ abbrev boundedOrder (α : Type u) [BooleanAlgebra α] :
       top := one
       bot_le := zero_le
       le_top := le_one }
+
+section Complements
+
+local instance : DistribLattice α := distribLattice α
+local instance : BoundedOrder α := boundedOrder α
+
+/-- The original Boolean complement is a complement in the derived lattice. -/
+theorem isCompl_compl (x : α) : IsCompl x (compl x) :=
+  IsCompl.of_eq (meet_compl x) (join_compl x)
+
+/-- Lattice complements agree exactly with the original Boolean complement. -/
+theorem isCompl_iff_eq_compl (x y : α) : IsCompl x y ↔ y = compl x := by
+  constructor
+  · intro h
+    exact eq_compl_of_join_eq_one_of_meet_eq_zero h.sup_eq_top h.inf_eq_bot
+  · intro h
+    subst y
+    exact isCompl_compl x
+
+/-- Every element of the derived bounded distributive lattice has a complement. -/
+theorem complementedLattice (α) [BooleanAlgebra α] : ComplementedLattice α where
+  exists_isCompl x := ⟨compl x, isCompl_compl x⟩
+
+end Complements
 
 end BooleanAlgebra
 
