@@ -144,3 +144,10 @@ that zero is least and one greatest. `le_zero_iff` and `one_le_iff` characterize
 the extreme comparisons. Install `letI := BooleanAlgebra.distribLattice A`
 and then `letI := BooleanAlgebra.boundedOrder A` to use the bounded distributive
 lattice API, with `⊥` equal to the original zero and `⊤` equal to the original one.
+
+The derived bounded distributive lattice is complemented.
+`BooleanAlgebra.isCompl_compl x` identifies the original Boolean complement
+as a lattice complement, and `isCompl_iff_eq_compl` characterizes all lattice
+complements, including uniqueness. After installing the derived lattice and
+bounds, `letI := BooleanAlgebra.complementedLattice A` supplies Mathlib's
+`ComplementedLattice A` API.
