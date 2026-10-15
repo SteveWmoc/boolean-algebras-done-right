@@ -151,3 +151,10 @@ as a lattice complement, and `isCompl_iff_eq_compl` characterizes all lattice
 complements, including uniqueness. After installing the derived lattice and
 bounds, `letI := BooleanAlgebra.complementedLattice A` supplies Mathlib's
 `ComplementedLattice A` API.
+
+`BooleanAlgebra.isomorphic_iff_orderIso` proves that two Boolean algebras
+are algebraically isomorphic exactly when their derived orders are order
+isomorphic. `Iso.toOrderIso` and `isoOfOrderIso` keep the same underlying map.
+Order isomorphisms preserve joins, meets, bounds, and the unique complement;
+`orderIso_map_compl` exposes the last step explicitly. The bridge uses only
+local instances for the derived structures.
