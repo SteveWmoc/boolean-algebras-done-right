@@ -181,6 +181,18 @@ theorem eq_compl_of_join_eq_one_of_meet_eq_zero {x y : α}
   · exact compl_join_self x
   · exact compl_meet_self x
 
+/-- Equal complements have equal original elements. -/
+theorem compl_injective : Function.Injective (compl : α → α) := by
+  intro x y h
+  calc
+    x = compl (compl x) := (compl_compl x).symm
+    _ = compl (compl y) := congrArg compl h
+    _ = y := compl_compl y
+
+/-- Complementation preserves and reflects equality. -/
+@[simp] theorem compl_inj {x y : α} : compl x = compl y ↔ x = y :=
+  compl_injective.eq_iff
+
 /-- The complement of `zero` is `one`. -/
 @[simp] theorem compl_zero : compl (zero : α) = one := by
   symm
