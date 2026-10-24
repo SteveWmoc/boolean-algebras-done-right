@@ -163,7 +163,7 @@ theorem compl_le_compl {x y : α} (h : le x y) : le (compl y) (compl x) := by
   calc
     meet (compl y) (compl x) = meet (compl x) (compl y) := meet_comm _ _
     _ = compl (join x y) := (compl_join x y).symm
-    _ = compl y := congrArg compl h
+    _ = compl y := congrArg BooleanOps.compl h
 
 /-- Complementation reverses and reflects the derived order. -/
 @[simp] theorem compl_le_compl_iff (x y : α) :
