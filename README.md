@@ -158,3 +158,9 @@ isomorphic. `Iso.toOrderIso` and `isoOfOrderIso` keep the same underlying map.
 Order isomorphisms preserve joins, meets, bounds, and the unique complement;
 `orderIso_map_compl` exposes the last step explicitly. The bridge uses only
 local instances for the derived structures.
+
+`BooleanAlgebra.join_mono` and `meet_mono` express monotonicity in both
+arguments, with `_left` and `_right` variants for a single varying argument.
+`compl_le_compl` proves that complement reverses the derived order;
+`compl_le_compl_iff` also reflects it, using complement involution.
+These lemmas use the intrinsic operations and relation directly.
