@@ -131,6 +131,48 @@ theorem le_meet_iff (x y z : α) :
   ⟨fun h => ⟨le_trans h (meet_le_left x y), le_trans h (meet_le_right x y)⟩,
     fun h => le_meet h.1 h.2⟩
 
+/-- Join is monotone in both arguments. -/
+theorem join_mono {x x' y y' : α} (hx : le x x') (hy : le y y') :
+    le (join x y) (join x' y') :=
+  join_le (le_trans hx (le_join_left x' y')) (le_trans hy (le_join_right x' y'))
+
+/-- Meet is monotone in both arguments. -/
+theorem meet_mono {x x' y y' : α} (hx : le x x') (hy : le y y') :
+    le (meet x y) (meet x' y') :=
+  le_meet (le_trans (meet_le_left x y) hx) (le_trans (meet_le_right x y) hy)
+
+theorem join_mono_left {x x' : α} (h : le x x') (y : α) :
+    le (join x y) (join x' y) :=
+  join_mono h (le_refl y)
+
+theorem join_mono_right (x : α) {y y' : α} (h : le y y') :
+    le (join x y) (join x y') :=
+  join_mono (le_refl x) h
+
+theorem meet_mono_left {x x' : α} (h : le x x') (y : α) :
+    le (meet x y) (meet x' y) :=
+  meet_mono h (le_refl y)
+
+theorem meet_mono_right (x : α) {y y' : α} (h : le y y') :
+    le (meet x y) (meet x y') :=
+  meet_mono (le_refl x) h
+
+/-- Complement reverses the derived order. -/
+theorem compl_le_compl {x y : α} (h : le x y) : le (compl y) (compl x) := by
+  apply (le_iff_meet_eq (compl y) (compl x)).mpr
+  calc
+    meet (compl y) (compl x) = meet (compl x) (compl y) := meet_comm _ _
+    _ = compl (join x y) := (compl_join x y).symm
+    _ = compl y := congrArg compl h
+
+/-- Complementation reverses and reflects the derived order. -/
+@[simp] theorem compl_le_compl_iff (x y : α) :
+    le (compl y) (compl x) ↔ le x y := by
+  constructor
+  · intro h
+    simpa only [compl_compl] using compl_le_compl h
+  · exact compl_le_compl
+
 /-- The derived lattice has the original join as supremum and meet as infimum. -/
 abbrev lattice (α : Type u) [BooleanAlgebra α] : Lattice α where
   toPartialOrder := partialOrder α
