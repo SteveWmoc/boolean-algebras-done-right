@@ -203,6 +203,33 @@ theorem le_zero_iff (x : α) : le x zero ↔ x = zero :=
 theorem one_le_iff (x : α) : le one x ↔ x = one :=
   ⟨fun h => le_antisymm (le_one x) h, by intro h; subst x; exact le_refl one⟩
 
+/-- Order is equivalently reverse order between complements. -/
+theorem le_iff_compl_le_compl (x y : α) :
+    le x y ↔ le (compl y) (compl x) :=
+  (compl_le_compl_iff x y).symm
+
+/-- An element lies below another exactly when it misses its complement. -/
+theorem le_iff_meet_compl_eq_zero (x y : α) :
+    le x y ↔ meet x (compl y) = zero := by
+  constructor
+  · intro h
+    apply (le_zero_iff (meet x (compl y))).mp
+    have hm := meet_mono h (le_refl (compl y))
+    rw [meet_compl] at hm
+    exact hm
+  · intro h
+    apply (le_iff_meet_eq x y).mpr
+    calc
+      meet x y = join (meet x y) zero := (join_zero _).symm
+      _ = join (meet x y) (meet x (compl y)) := congrArg (join (meet x y)) h.symm
+      _ = meet x (join y (compl y)) := (meet_distrib_join x y (compl y)).symm
+      _ = x := by rw [join_compl, meet_one]
+
+/-- Reverse order between complements is equivalently a zero meet. -/
+theorem compl_le_compl_iff_meet_compl_eq_zero (x y : α) :
+    le (compl y) (compl x) ↔ meet x (compl y) = zero :=
+  (compl_le_compl_iff x y).trans (le_iff_meet_compl_eq_zero x y)
+
 /-- Bounds for the derived distributive lattice, with bottom zero and top one.
 
 Install `distribLattice α` and then `boundedOrder α` locally to use
