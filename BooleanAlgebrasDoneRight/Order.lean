@@ -234,6 +234,12 @@ theorem compl_le_compl_iff_meet_compl_eq_zero (x y : α) :
     le (compl y) (compl x) ↔ meet x (compl y) = zero :=
   (compl_le_compl_iff x y).trans (le_iff_meet_compl_eq_zero x y)
 
+/-- Meeting with `z` is left adjoint to joining with its complement. -/
+theorem meet_le_iff_le_compl_join (z x y : α) :
+    le (meet z x) y ↔ le x (join (compl z) y) := by
+  simp only [le_iff_meet_compl_eq_zero, compl_join, compl_compl]
+  rw [meet_comm z x, meet_assoc]
+
 /-- Bounds for the derived distributive lattice, with bottom zero and top one.
 
 Install `distribLattice α` and then `boundedOrder α` locally to use
