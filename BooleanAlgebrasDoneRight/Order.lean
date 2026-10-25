@@ -131,6 +131,10 @@ theorem le_meet_iff (x y z : α) :
   ⟨fun h => ⟨le_trans h (meet_le_left x y), le_trans h (meet_le_right x y)⟩,
     fun h => le_meet h.1 h.2⟩
 
+/-- A meet lies below the join of the second factor with the complement of the first. -/
+theorem meet_le_join_compl (z x : α) : le (meet z x) (join (compl z) x) :=
+  le_trans (meet_le_right z x) (le_join_right (compl z) x)
+
 /-- Join is monotone in both arguments. -/
 theorem join_mono {x x' y y' : α} (hx : le x x') (hy : le y y') :
     le (join x y) (join x' y') :=
@@ -229,6 +233,12 @@ theorem le_iff_meet_compl_eq_zero (x y : α) :
 theorem compl_le_compl_iff_meet_compl_eq_zero (x y : α) :
     le (compl y) (compl x) ↔ meet x (compl y) = zero :=
   (compl_le_compl_iff x y).trans (le_iff_meet_compl_eq_zero x y)
+
+/-- Meeting with `z` is left adjoint to joining with its complement. -/
+theorem meet_le_iff_le_compl_join (z x y : α) :
+    le (meet z x) y ↔ le x (join (compl z) y) := by
+  simp only [le_iff_meet_compl_eq_zero, compl_join, compl_compl]
+  rw [meet_comm z x, meet_assoc]
 
 /-- Bounds for the derived distributive lattice, with bottom zero and top one.
 
