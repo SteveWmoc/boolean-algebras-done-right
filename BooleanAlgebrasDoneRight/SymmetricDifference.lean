@@ -1,4 +1,6 @@
 import BooleanAlgebrasDoneRight.Hom
+import BooleanAlgebrasDoneRight.Order
+import Mathlib.Order.SymmDiff
 
 /-!
 # Symmetric difference
@@ -47,6 +49,44 @@ theorem symmDiff_comm (x y : α) : symmDiff x y = symmDiff y x :=
 @[simp] theorem Hom.map_symmDiff {β : Type v} [BooleanAlgebra β]
     (f : Hom α β) (x y : α) : f (symmDiff x y) = symmDiff (f x) (f y) := by
   simp only [symmDiff, Hom.map_join, Hom.map_meet, Hom.map_compl]
+
+section RingLaws
+
+-- Use the lattice already derived from the intrinsic algebraic axioms.
+-- This instance is local and retains every original operation.
+local instance : DistribLattice α := distribLattice α
+local instance : _root_.BooleanAlgebra α where
+  toDistribLattice := distribLattice α
+  compl := BooleanOps.compl
+  bot := zero
+  top := one
+  bot_le := zero_le
+  le_top := le_one
+  inf_compl_le_bot x := le_of_eq (meet_compl x)
+  top_le_sup_compl x := le_of_eq (join_compl x).symm
+
+/-- Symmetric difference vanishes exactly on equal arguments. -/
+@[simp] theorem symmDiff_eq_zero_iff (x y : α) : symmDiff x y = zero ↔ x = y := by
+  change _root_.symmDiff x y = ⊥ ↔ x = y
+  exact _root_.symmDiff_eq_bot
+
+theorem eq_iff_symmDiff_eq_zero (x y : α) : x = y ↔ symmDiff x y = zero :=
+  (symmDiff_eq_zero_iff x y).symm
+
+/-- Symmetric difference is associative. -/
+theorem symmDiff_assoc (x y z : α) :
+    symmDiff (symmDiff x y) z = symmDiff x (symmDiff y z) := by
+  change _root_.symmDiff (_root_.symmDiff x y) z =
+    _root_.symmDiff x (_root_.symmDiff y z)
+  exact _root_.symmDiff_assoc
+
+/-- Meet distributes over symmetric difference. -/
+theorem meet_symmDiff_distrib (x y z : α) :
+    meet x (symmDiff y z) = symmDiff (meet x y) (meet x z) := by
+  change x ⊓ _root_.symmDiff y z = _root_.symmDiff (x ⊓ y) (x ⊓ z)
+  exact _root_.inf_symmDiff_distrib_left
+
+end RingLaws
 
 end BooleanAlgebra
 
