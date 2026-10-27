@@ -78,13 +78,13 @@ theorem symmDiff_assoc (x y z : α) :
     symmDiff (symmDiff x y) z = symmDiff x (symmDiff y z) := by
   change _root_.symmDiff (_root_.symmDiff x y) z =
     _root_.symmDiff x (_root_.symmDiff y z)
-  exact _root_.symmDiff_assoc
+  exact _root_.symmDiff_assoc (α := α) (a := x) (b := y) (c := z)
 
 /-- Meet distributes over symmetric difference. -/
 theorem meet_symmDiff_distrib (x y z : α) :
     meet x (symmDiff y z) = symmDiff (meet x y) (meet x z) := by
   change x ⊓ _root_.symmDiff y z = _root_.symmDiff (x ⊓ y) (x ⊓ z)
-  exact _root_.inf_symmDiff_distrib_left
+  exact _root_.inf_symmDiff_distrib_left (α := α) (a := x) (b := y) (c := z)
 
 end RingLaws
 
