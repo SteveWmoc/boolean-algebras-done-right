@@ -164,3 +164,10 @@ arguments, with `_left` and `_right` variants for a single varying argument.
 `compl_le_compl` proves that complement reverses the derived order;
 `compl_le_compl_iff` also reflects it, using complement involution.
 These lemmas use the intrinsic operations and relation directly.
+
+`BooleanAlgebra.symmDiff x y` is defined as the join of `meet x (compl y)`
+and `meet y (compl x)`. Its elementary laws include commutativity, zero as
+identity, self-difference zero, and difference with one equal to complement.
+Boolean homomorphisms preserve it. `SetExamples.val_symmDiff` identifies it
+with `(a \\ b) ∪ (b \\ a)` in power set algebras. This starts the construction
+of Boolean ring addition; the ring structure is not yet packaged.
