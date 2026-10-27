@@ -54,8 +54,8 @@ section RingLaws
 
 -- Use the lattice already derived from the intrinsic algebraic axioms.
 -- This instance is local and retains every original operation.
-local instance : DistribLattice α := distribLattice α
-local instance : _root_.BooleanAlgebra α where
+local instance symmDiffDistribLattice : DistribLattice α := distribLattice α
+local instance symmDiffMathlibBooleanAlgebra : _root_.BooleanAlgebra α where
   toDistribLattice := distribLattice α
   compl := BooleanOps.compl
   bot := zero
