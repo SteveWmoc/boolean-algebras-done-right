@@ -1,6 +1,6 @@
 import Mathlib.Data.Set.Lattice.Bounded
 import Mathlib.Tactic.Tauto
-import BooleanAlgebrasDoneRight.Basic
+import BooleanAlgebrasDoneRight.SymmetricDifference
 
 /-
 Copyright (c) 2026 Steven Sabean. All rights reserved.
@@ -161,6 +161,18 @@ instance powerSetBooleanAlgebra (X : Set α) :
 @[simp] theorem val_one (X : Set α) :
     ((one : PowerSetAlgebra X) : Set α) = X :=
   rfl
+
+/-- Symmetric difference in a power set algebra is the usual union of differences. -/
+@[simp] theorem val_symmDiff {X : Set α} (a b : PowerSetAlgebra X) :
+    ((BooleanAlgebra.symmDiff a b : PowerSetAlgebra X) : Set α) =
+      (a.1 \ b.1) ∪ (b.1 \ a.1) := by
+  ext t
+  change (t ∈ a.1 ∧ (t ∈ X ∧ t ∉ b.1) ∨
+    t ∈ b.1 ∧ (t ∈ X ∧ t ∉ a.1)) ↔
+      (t ∈ a.1 ∧ t ∉ b.1) ∨ (t ∈ b.1 ∧ t ∉ a.1)
+  have ha : t ∈ a.1 → t ∈ X := a.2
+  have hb : t ∈ b.1 → t ∈ X := b.2
+  tauto
 
 end SetExamples
 
