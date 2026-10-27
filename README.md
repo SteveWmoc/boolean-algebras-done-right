@@ -171,3 +171,9 @@ identity, self-difference zero, and difference with one equal to complement.
 Boolean homomorphisms preserve it. `SetExamples.val_symmDiff` identifies it
 with `(a \\ b) ∪ (b \\ a)` in power set algebras. This starts the construction
 of Boolean ring addition; the ring structure is not yet packaged.
+
+`eq_iff_symmDiff_eq_zero` characterizes equality by vanishing symmetric
+difference. `symmDiff_assoc` proves associativity, and `meet_symmDiff_distrib`
+proves that meet distributes over symmetric difference. Together with the
+identity and self-difference laws, these supply the additive and distributive
+laws needed for the Boolean ring construction.
