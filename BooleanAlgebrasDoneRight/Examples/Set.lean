@@ -170,8 +170,8 @@ instance powerSetBooleanAlgebra (X : Set α) :
   change (t ∈ a.1 ∧ (t ∈ X ∧ t ∉ b.1) ∨
     t ∈ b.1 ∧ (t ∈ X ∧ t ∉ a.1)) ↔
       (t ∈ a.1 ∧ t ∉ b.1) ∨ (t ∈ b.1 ∧ t ∉ a.1)
-  have ha : t ∈ a.1 → t ∈ X := a.2
-  have hb : t ∈ b.1 → t ∈ X := b.2
+  have ha : t ∈ a.1 → t ∈ X := fun ht => a.2 ht
+  have hb : t ∈ b.1 → t ∈ X := fun ht => b.2 ht
   tauto
 
 end SetExamples
