@@ -184,3 +184,12 @@ The `BooleanRing` module uses Mathlib's definitions directly:
 not an assumption; the zero ring is allowed. The constructor
 `BooleanAlgebrasDoneRight.booleanRingOfIdempotents R h` retains an existing
 ring's operations and supplies its universal idempotence proof.
+
+`BooleanRingCorrespondence.RingOf A` associates a Boolean ring to an intrinsic
+Boolean algebra: addition is symmetric difference, multiplication is meet,
+and additive negation is the identity. Conversely, `AlgebraOf R` uses
+`x * y` for meet, `x + y + x * y` for join, and `1 + x` for complement.
+The original zero and one serve as the bounds in both directions.
+`algebraRoundTripIso` and `ringRoundTripEquiv` prove that the constructions
+are mutually inverse up to isomorphism, via the identity on the underlying
+carrier. Tagged carriers keep the two meanings of addition separate.

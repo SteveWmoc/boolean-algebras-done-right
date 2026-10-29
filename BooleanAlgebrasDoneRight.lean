@@ -24,3 +24,4 @@ import BooleanAlgebrasDoneRight.Examples.FiniteCofiniteCardinality
 import BooleanAlgebrasDoneRight.Examples.TrivialSet
 import BooleanAlgebrasDoneRight.Examples.Two
 import BooleanAlgebrasDoneRight.Mathlib.Bridge
+import BooleanAlgebrasDoneRight.BooleanRingCorrespondence
