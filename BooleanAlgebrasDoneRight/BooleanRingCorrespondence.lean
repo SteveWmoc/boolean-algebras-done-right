@@ -45,12 +45,12 @@ abbrev ofMathlib (A : Type u) [_root_.BooleanAlgebra A] : BooleanAlgebra A where
   meet_comm := inf_comm
   join_assoc := sup_assoc
   join_comm := sup_comm
-  join_absorb_meet := sup_inf_self
-  meet_absorb_join := inf_sup_self
+  join_absorb_meet := fun _ _ => sup_inf_self
+  meet_absorb_join := fun _ _ => inf_sup_self
   meet_distrib_join := inf_sup_left
   join_distrib_meet := sup_inf_left
-  join_compl := sup_compl_eq_top
-  meet_compl := inf_compl_eq_bot
+  join_compl := fun _ => sup_compl_eq_top
+  meet_compl := fun _ => inf_compl_eq_bot
 
 /-- The carrier of the Boolean ring associated to a Boolean algebra. -/
 def RingOf (A : Type u) : Type u := A
@@ -94,18 +94,21 @@ def algebraRoundTripIso (A : Type u) [BooleanAlgebra A] :
 
 end AlgebraToRing
 
+/-- Read an element of the associated algebra as an element of the original ring. -/
+def ofAlgebra {R : Type u} (x : AlgebraOf R) : R := x
+
 section RingToAlgebra
 
 variable {R : Type u} [BooleanRing R]
 
 @[simp] theorem algebraOf_meet (x y : AlgebraOf R) :
-    meet x y = (x : R) * (y : R) := rfl
+    ofAlgebra (meet x y) = ofAlgebra x * ofAlgebra y := rfl
 
 @[simp] theorem algebraOf_join (x y : AlgebraOf R) :
-    join x y = (x : R) + (y : R) + (x : R) * (y : R) := rfl
+    ofAlgebra (join x y) = ofAlgebra x + ofAlgebra y + ofAlgebra x * ofAlgebra y := rfl
 
 @[simp] theorem algebraOf_compl (x : AlgebraOf R) :
-    BooleanOps.compl x = (1 : R) + (x : R) := rfl
+    ofAlgebra (BooleanOps.compl x) = (1 : R) + ofAlgebra x := rfl
 
 @[simp] theorem algebraOf_zero : (zero : AlgebraOf R) = (0 : R) := rfl
 @[simp] theorem algebraOf_one : (one : AlgebraOf R) = (1 : R) := rfl
