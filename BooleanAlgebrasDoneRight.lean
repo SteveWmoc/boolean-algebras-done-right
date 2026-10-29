@@ -1,6 +1,7 @@
 import BooleanAlgebrasDoneRight.Signature
 import BooleanAlgebrasDoneRight.Basic
 import BooleanAlgebrasDoneRight.SymmetricDifference
+import BooleanAlgebrasDoneRight.BooleanRing
 import BooleanAlgebrasDoneRight.Dual
 import BooleanAlgebrasDoneRight.Duality
 import BooleanAlgebrasDoneRight.Logic.Lindenbaum

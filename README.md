@@ -177,3 +177,10 @@ difference. `symmDiff_assoc` proves associativity, and `meet_symmDiff_distrib`
 proves that meet distributes over symmetric difference. Together with the
 identity and self-difference laws, these supply the additive and distributive
 laws needed for the Boolean ring construction.
+
+The `BooleanRing` module uses Mathlib's definitions directly:
+`IsIdempotentElem x` means `x * x = x`, and `BooleanRing R` is a unital
+`Ring R` in which every element is idempotent. Commutativity is a consequence,
+not an assumption; the zero ring is allowed. The constructor
+`BooleanAlgebrasDoneRight.booleanRingOfIdempotents R h` retains an existing
+ring's operations and supplies its universal idempotence proof.
