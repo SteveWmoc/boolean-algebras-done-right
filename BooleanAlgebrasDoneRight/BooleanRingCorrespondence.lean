@@ -87,7 +87,7 @@ def algebraRoundTripIso (A : Type u) [BooleanAlgebra A] :
         { toFun := fun x => x
           map_zero' := rfl
           map_one' := rfl
-          map_join' := fun x y => _root_.symmDiff_symmDiff_inf
+          map_join' := fun x y => _root_.symmDiff_symmDiff_inf (α := A) (a := x) (b := y)
           map_meet' := fun _ _ => rfl
           map_compl' := fun x => BooleanAlgebra.one_symmDiff (α := A) x }
       bijective' := Function.bijective_id }
